@@ -1,16 +1,31 @@
 from flask import (Flask, g, render_template, flash, redirect, url_for)
 from flask.ext.bcrypt import check_password_hash
 from flask.ext.login import LoginManager, login_user
-
+from flask_peewee.admin import Admin
+from flask_peewee.auth import Auth
+from flask_peewee.db import Database
+from flask_admin import Admin
+from flask.ext.admin.contrib.sqla import ModelView
 import forms
 import models
 
-DEBUG = True
+
+
+DEBUG = False
 PORT = 8000
 HOST = '0.0.0.0'
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 app.secret_key = 'ScertKeyInsertHere'
+
+
+# needed for authentication
+auth = Auth(app, db)
+admin = Admin(app,name="GrizzHacks")
+#admin = Admin(app, auth)
+#admin.add_view(Mod)
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -70,6 +85,7 @@ def login():
 
 
 
+
 @app.route('/')
 def index():
     return 'Tacos'
@@ -78,12 +94,22 @@ def index():
 
 if __name__ == '__main__':
     models.initialize()
+
     try:
         models.User.create_user(
             email='rughaniarpan@gmail.com',
             password='password',
             admin=True
+
         )
+        admin = auth.User(username= 'admin', email='rughaniarpan@gmail.com', admin=True, active=True)
+        admin.set_password('admin')
+        admin.save()
+
     except ValueError:
         pass
+
+
     app.run(debug=DEBUG, host=HOST, port=PORT)
+
+
