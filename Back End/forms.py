@@ -1,9 +1,10 @@
 from flask_wtf import Form
 from wtforms import StringField, PasswordField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
-                               Length, EqualTo)
+                                Length, EqualTo)
 
 from models import User
+
 
 def email_exists(form, field):
     if User.select().where(User.email == field.data).exists():
@@ -29,7 +30,7 @@ class RegisterForm(Form):
         'Confirm Password',
         validators=[DataRequired()]
     )
-    
+
 
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
