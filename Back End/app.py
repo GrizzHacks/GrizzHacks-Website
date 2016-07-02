@@ -1,30 +1,37 @@
+import peewee
 from flask import (Flask, g, render_template, flash, redirect, url_for)
 from flask.ext.bcrypt import check_password_hash
-from flask.ext.login import LoginManager, login_user
+from flask.ext.login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_peewee.admin import Admin
 from flask_peewee.auth import Auth
 from flask_peewee.db import Database
-from flask_admin import Admin
-from flask.ext.admin.contrib.sqla import ModelView
+from flask_admin import Admin, AdminIndexView, BaseView, expose
+
+from flask.ext.admin.contrib.peewee import ModelView
 import forms
 import models
 
 
+#class MyHomeView(AdminIndexView):
+ #   def is_accessible(self):
+  #      return 'arpan'
+   #     return current_user.is_authenticated and current_user.is_admin
 
-DEBUG = False
+
+
+class MyView(BaseView):
+    @expose('/')
+    def index(self):
+        return self.render('index.html')
+
+DEBUG = True
 PORT = 8000
 HOST = '0.0.0.0'
 
 app = Flask(__name__)
-app.config.from_object(__name__)
 app.secret_key = 'ScertKeyInsertHere'
 
 
-# needed for authentication
-auth = Auth(app, db)
-admin = Admin(app,name="GrizzHacks")
-#admin = Admin(app, auth)
-#admin.add_view(Mod)
 
 
 login_manager = LoginManager()
@@ -78,12 +85,40 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
                 flash("You've been logged in!", "success")
-                return redirect(url_for('index'))
+                return redirect(url_for('apply'))
             else:
                 flash("Your email or password doesn't match!", "error")
     return render_template('login.html', form=form)
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("you've been logged out! Come back soon", "success")
+    return redirect(url_for('index'))
+
+@app.route('/appinfo')
+@login_required
+def appinfo():
+    form = forms.ApplyForm()
+    if form.validate_on_submit():
+        models.Apply.create(fullname=form.fullname.data,
+                            email=form.email.data)
+        flash("your application has been submitted", "success")
+
+    return render_template('appinfo.html')
+
+@app.route('/apply', methods=('GET', 'POST'))
+@login_required
+def apply():
+    form = forms.ApplyForm()
+    if form.validate_on_submit():
+        models.Apply.create(fullname = form.fullname.data,
+                            email = form.email.data)
+        flash("your application has been submitted", "success")
+        return redirect(url_for('index'))
+    return render_template('apply.html', title = 'Apply', form = form)
 
 
 @app.route('/')
@@ -91,20 +126,21 @@ def index():
     return 'Tacos'
 
 
-
 if __name__ == '__main__':
     models.initialize()
 
+    # needed for authentication
+    admin = Admin(app, name="GrizzHacks")
+    admin.add_view(ModelView(models.User))
+    admin.add_view(ModelView(models.Apply))
     try:
         models.User.create_user(
             email='rughaniarpan@gmail.com',
             password='password',
             admin=True
-
         )
-        admin = auth.User(username= 'admin', email='rughaniarpan@gmail.com', admin=True, active=True)
-        admin.set_password('admin')
-        admin.save()
+
+
 
     except ValueError:
         pass

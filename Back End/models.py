@@ -2,9 +2,10 @@ import datetime
 
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
+from flask_admin.contrib.peewee import ModelView
 from peewee import *
 
-DATABASE = SqliteDatabase('GrizzHacks.db')
+DATABASE = SqliteDatabase('GrizzHacks.sqlite', check_same_thread=False)
 
 
 class User(UserMixin, Model):
@@ -25,11 +26,25 @@ class User(UserMixin, Model):
                 password=generate_password_hash(password),
                 is_admin=admin)
         except IntegrityError:
-           raise ValueError("User cant be created ")
+           raise ValueError("User already exists")
+
+
+class Apply(Model):
+        fullname = TextField(unique=False)
+        emailapp = CharField (max_length=100)
+        birthday = TextField()
+        phone = TextField()
+        graduation = TextField()
+        gender = TextField()
+        school = TextField()
+        github = TextField()
+        accept_tos = BooleanField()
+
+
 
 
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User], safe=True)
+    DATABASE.create_tables([User, Apply], safe=True)
     DATABASE.close()
