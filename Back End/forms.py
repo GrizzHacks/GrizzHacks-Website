@@ -38,8 +38,7 @@ class LoginForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
 
 class ApplyForm(Form):
-    fullname = StringField('Full Name', validators=[
-        DataRequired()])
+    fullname = StringField('Full Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     birthday = StringField('Date of Birth', validators=[DataRequired()])
     phone = IntegerField('Phone Number', validators = [DataRequired()])

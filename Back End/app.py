@@ -12,23 +12,32 @@ import forms
 import models
 
 
-#class MyHomeView(AdminIndexView):
- #   def is_accessible(self):
-  #      return 'arpan'
-   #     return current_user.is_authenticated and current_user.is_admin
+class MyHomeView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
 
-
+class MyModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
 
 class MyView(BaseView):
     @expose('/')
     def index(self):
         return self.render('index.html')
 
-DEBUG = True
+
+class UserView(ModelView):
+    column_exclude_list = ['password']
+    column_searchable_list = ['email']
+    page_size = 50
+
+DEBUG = False
 PORT = 8000
 HOST = '0.0.0.0'
 
 app = Flask(__name__)
+app.config.from_object(__name__)
+
 app.secret_key = 'ScertKeyInsertHere'
 
 
@@ -124,15 +133,19 @@ def apply():
 @app.route('/')
 def index():
     return 'Tacos'
-
+#auth = Auth(app, models.DATABASE)
+#admin = Admin(app, auth)
+#admin.register(models.User)
+#admin.setup()
 
 if __name__ == '__main__':
     models.initialize()
 
     # needed for authentication
     admin = Admin(app, name="GrizzHacks")
-    admin.add_view(ModelView(models.User))
-    admin.add_view(ModelView(models.Apply))
+    admin.add_view(UserView(models.User))
+    admin.add_view(MyModelView(models.Apply))
+#    admin.set_password('admin')
     try:
         models.User.create_user(
             email='rughaniarpan@gmail.com',
