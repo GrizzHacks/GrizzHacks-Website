@@ -4,6 +4,9 @@ from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
 from flask_admin.contrib.peewee import ModelView
 from peewee import *
+from flask_peewee.admin import Admin
+from flask_peewee.auth import Auth
+
 
 DATABASE = SqliteDatabase('GrizzHacks.sqlite', check_same_thread=False)
 
@@ -48,3 +51,4 @@ def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Apply], safe=True)
     DATABASE.close()
+
