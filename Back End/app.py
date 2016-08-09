@@ -20,18 +20,16 @@ class MyModelView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.is_admin
 
-class MyView(BaseView):
-    @expose('/')
-    def index(self):
-        return self.render('index.html')
 
 
 class UserView(ModelView):
     column_exclude_list = ['password']
     column_searchable_list = ['email']
     page_size = 50
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
 
-DEBUG = False
+DEBUG = True
 PORT = 8000
 HOST = '0.0.0.0'
 
@@ -124,16 +122,24 @@ def apply():
     form = forms.ApplyForm()
     if form.validate_on_submit():
         models.Apply.create(fullname = form.fullname.data,
-                            email = form.email.data)
+                            emailapp = form.emailapp.data,
+                            birthday = form.birthday.data,
+                            phone = form.phone.data,
+                            graduation = form.graduation.data,
+                            gender = form.gender.data,
+                            school = form.school.data,
+                            github = form.github.data)
         flash("your application has been submitted", "success")
         return redirect(url_for('index'))
     return render_template('apply.html', title = 'Apply', form = form)
 
 
+
 @app.route('/')
 def index():
-    return 'Tacos'
-#auth = Auth(app, models.DATABASE)
+
+
+    auth = Auth(app, models.DATABASE)
 #admin = Admin(app, auth)
 #admin.register(models.User)
 #admin.setup()
@@ -145,6 +151,7 @@ if __name__ == '__main__':
     admin = Admin(app, name="GrizzHacks")
     admin.add_view(UserView(models.User))
     admin.add_view(MyModelView(models.Apply))
+    admin.add_view(MyModelView(models.emailSignup))
 #    admin.set_password('admin')
     try:
         models.User.create_user(
@@ -152,11 +159,9 @@ if __name__ == '__main__':
             password='password',
             admin=True
         )
-
-
-
     except ValueError:
         pass
+
 
 
     app.run(debug=DEBUG, host=HOST, port=PORT)
