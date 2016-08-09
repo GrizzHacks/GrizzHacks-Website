@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, DateTimeField, IntegerField, Rad
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
                                 Length, EqualTo, number_range)
 
-from models import User
+from models import User, Apply, emailSignup
 
 
 def email_exists(form, field):
@@ -39,12 +39,20 @@ class LoginForm(Form):
 
 class ApplyForm(Form):
     fullname = StringField('Full Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    emailapp = StringField('Email', validators=[DataRequired(), Email()])
     birthday = StringField('Date of Birth', validators=[DataRequired()])
     phone = IntegerField('Phone Number', validators = [DataRequired()])
     graduation = StringField('Expected Graduation', validators=[DataRequired()])
     gender = StringField('Gender', validators=[DataRequired()])
     school = StringField('School', validators=[DataRequired()])
     github = StringField('Github username optional')
-    paragraph = TextAreaField(validators=[Length(max=150)])
-    accept_tos = BooleanField('I accept the Terms and Conditions', validators=[DataRequired()])
+    #paragraph = TextAreaField(validators=[Length(max=150)])
+
+class Rsvp(Form):
+    attend = RadioField('Can you attend?', choices=[('Yes', 'Yes I will be there'), ('No', 'No, I can not make it')])
+    how = RadioField('How did you hear about us?', choices=[('MLH Website','MLH Website'),('School Presentation','School Presentation'),('Social Media','Social Media'), ('School Mailing List','School Mailing List'), ('Other Hackathon','Other Hackathon'), ('Banner Advertisement'), ('Others', 'Others')])
+    shirtSize = RadioField('What is your shirt size?', choices=[('Extra Small', 'XSmall'), ('Small', 'Small'), ('Medium', 'Medium' ), ('Large','Large'), ('XLarge'), ('XXLarge (Grizzly Size)')] )
+
+
+class signup(Form):
+    emailaddress = StringField('Email', validators=[DataRequired(), Email()])

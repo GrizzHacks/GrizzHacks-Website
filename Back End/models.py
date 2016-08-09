@@ -8,7 +8,7 @@ from flask_peewee.admin import Admin
 from flask_peewee.auth import Auth
 
 
-DATABASE = SqliteDatabase('GrizzHacks.sqlite', check_same_thread=False)
+DATABASE = SqliteDatabase('GrizzHack.sqlite', check_same_thread=False)
 
 
 class User(UserMixin, Model):
@@ -22,7 +22,7 @@ class User(UserMixin, Model):
         order_by = ('-joined_at',)
 
     @classmethod
-    def create_user(cls, email, password, admin=True):
+    def create_user(cls, email, password, admin=False):
         try:
             cls.create(
                 email=email,
@@ -41,14 +41,18 @@ class Apply(Model):
         gender = TextField()
         school = TextField()
         github = TextField()
-        accept_tos = BooleanField()
+
+        class Meta:
+            database = DATABASE
 
 
+class emailSignup(Model):
+        emailSignup = CharField(max_length=100)
 
 
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Apply], safe=True)
+    DATABASE.create_tables([User, Apply, emailSignup], safe=True)
     DATABASE.close()
 
