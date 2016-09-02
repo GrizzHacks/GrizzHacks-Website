@@ -1,0 +1,44 @@
+
+.navbar .navbar-brand {
+	color: rgba(255, 255, 255, .85);
+	font-size: 1rem;
+	padding-top: .45rem;
+
+}
+
+.navbar {
+    background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+}
+.jumbotron {
+    position: relative;
+	background: url('/img/cover.jpg');
+	width:100%;
+    height: 90%;
+    background-size: 100% 100%;
+}
+
+.btn,
+.active {
+	transition: .4s;
+}
+
+
+
+button:hover {
+  background: #3071A9
+}
+
+#square {
+width: 10px;
+height: 10px;
+background: #f447ff;
+}
+
+
+#mainlogo img{
+	width: 50%;
+	height: 50%;
+	align-items: center;
+}
