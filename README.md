@@ -61,7 +61,7 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 ## Authors
 
 
-See also the list of [contributors](https://github.com/BharatiyaTemple/LibraryCheckin/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/GrizzHacks/GrizzHacks-Website/graphs/contributors) who participated in this project.
 
 ## License
 
