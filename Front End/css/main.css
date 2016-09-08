@@ -1,15 +1,24 @@
 
-.navbar .navbar-brand {
-	color: rgba(255, 255, 255, .85);
-	font-size: 1rem;
-	padding-top: .45rem;
-
+/* center the navbar*/
+.center.navbar .nav,
+.center.navbar .nav > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    *zoom:1; /* hasLayout ie7 trigger */
+    vertical-align: top;
 }
 
-.navbar {
-    background-color: transparent;
-   background: transparent;
-   border-color: transparent;
+.center .navbar-inner {
+    text-align:center;
+}
+
+.center .dropdown-menu {
+    text-align: left;
+}
+
+.navbar-custom {
+  background-color:#000; opacity:0.3;
 }
 .jumbotron {
     position: relative;
@@ -30,15 +39,4 @@ button:hover {
   background: #3071A9
 }
 
-#square {
-width: 10px;
-height: 10px;
-background: #f447ff;
-}
 
-
-#mainlogo img{
-	width: 50%;
-	height: 50%;
-	align-items: center;
-}
