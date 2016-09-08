@@ -26,9 +26,9 @@ Install requirements.txt
 ```
 pip install -r /path/to/requirements.txt
 ```
-Run main Python Checkin.py
+Run main Python app.py
 ```
-sudo python3 checkin.py
+sudo python3 app.py
 ```
 
 ## Deployment
