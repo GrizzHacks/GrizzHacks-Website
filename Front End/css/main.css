@@ -22,7 +22,6 @@
 }
 .jumbotron {
     position: relative;
-	background: url('/img/cover.jpg');
 	width:100%;
     height: 90%;
     background-size: 100% 100%;
@@ -40,3 +39,54 @@ button:hover {
 }
 
 
+<<<<<<< HEAD
+#fh5co-footer {
+  padding-top: 4em;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  height: 350px;
+  background: gray;
+  font-size: 18px;
+}
+@media screen and (max-width: 992px) {
+  #fh5co-footer {
+    height: inherit;
+    position: relative;
+    padding: 5em 0;
+  }
+}
+#fh5co-footer .fh5co-social li {
+  display: block;
+}
+#fh5co-footer p {
+  line-height: 1.5;
+}
+#fh5co-footer h3 {
+  color: #fff;
+  font-size: 20px;
+}
+#fh5co-footer a {
+  color: rgba(255, 255, 255, 0.7);
+}
+#fh5co-footer a:hover {
+  color: deepskyblue;
+}
+#fh5co-footer ul {
+  padding: 0;
+  margin: 0;
+}
+#fh5co-footer ul li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+#fh5co-footer .fh5co-copyright {
+  padding-top: 3em;
+}
+#fh5co-footer .fh5co-copyright small {
+  display: block;
+}
+=======
+>>>>>>> pr/12
