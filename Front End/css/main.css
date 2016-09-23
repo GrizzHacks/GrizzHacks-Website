@@ -37,6 +37,26 @@ body {
   }
 }
 
+.post-content {
+    background: none repeat scroll 0 0 #FFffff;
+    opacity: 0.5;
+    margin: 0 auto;
+    margin-top: -54px;
+    text-align:center
+    position: relative;
+    width:40%;
+
+    
+}
+
+.thumbnail {
+    margin:0 auto;
+    text-align:center;
+}
+
+.wrapper {
+    text-align:center;
+}
 .fh5co-table,
 .fh5co-table-cell,
 .fh5co-hero,
