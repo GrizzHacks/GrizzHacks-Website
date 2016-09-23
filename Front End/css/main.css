@@ -22,6 +22,7 @@
 }
 .jumbotron {
     position: relative;
+	background: url('/img/cover.jpg');
 	width:100%;
     height: 90%;
     background-size: 100% 100%;
@@ -39,7 +40,6 @@ button:hover {
 }
 
 
-<<<<<<< HEAD
 #fh5co-footer {
   padding-top: 4em;
   bottom: 0;
@@ -88,5 +88,25 @@ button:hover {
 #fh5co-footer .fh5co-copyright small {
   display: block;
 }
-=======
->>>>>>> pr/12
+
+
+
+
+body {
+  padding: 20px;
+}
+
+nav {
+  a {
+    margin: 0 20px;
+  }
+}
+
+.content {
+  display: none;
+}
+
+#home {
+  // more specific, so it overrides display: none;
+  display: block;
+}
