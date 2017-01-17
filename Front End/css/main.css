@@ -45,16 +45,6 @@ body {
     text-align: left;
 }
 
-.navbar-custom {
-  background-color:#000; opacity:0.6;
-}
-
-
-nav {
-  a {
-    margin: 0 20px;
-  }
-}
 
 
 #page {
@@ -123,6 +113,54 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 
+header {
+    text-align: center;
+    color: #fff;
+    background: #18bc9c;
+
+    position: relative;
+    width:100%;
+    z-index: 1;
+    height: 88%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+.content-wrapper{
+    background-color: white;
+    top: 87%;
+    min-height: 12%;
+    position:absolute;
+    z-index: 2;
+    width: 100%;    
+}
+/* HERE ENDS THE MAGIC */
+header .container {
+    padding-top: 150px;
+    padding-bottom: 50px;
+}
+
+header img {
+    display: block;
+    margin: 0 auto 20px;
+}
+
+header .intro-text .name {
+    display: block;
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+header .intro-text .skills {
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+
+
 
 .jumbotron {
     margin-bottom: 0px;
@@ -149,6 +187,9 @@ h1, h2, h3, h4, h5, h6, figure {
   width: 100%;
   float: left;
   position: relative;
+
+
+    
 }
 
 
@@ -508,7 +549,7 @@ form label {
 #counter .counter-label {
   margin-bottom: 0;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: black;
   letter-spacing: .1em;
 }
 @media screen and (max-width: 992px) {
@@ -583,17 +624,7 @@ form label {
 .bg-section {
   position: relative;
 }
-.bg-section .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-}
+
 
 #features,
 #features-2 {
@@ -763,7 +794,7 @@ form label {
 
 .col-feature-3 {
   width: 25%;
-  background: rgba(0, 0, 0, 0.2);
+  background: white;
   background-size: cover;
   background-position: center center;
   position: relative;
